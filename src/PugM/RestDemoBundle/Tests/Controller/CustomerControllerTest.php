@@ -24,5 +24,12 @@ class CustomerControllerTest extends WebTestCase{
 
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals('application/json', $client->getResponse()->headers->get('Content-Type'));
+        $response = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertEquals(1, $response['id']);
+        $this->assertEquals('foo customer name', $response['name']);
+        $this->assertEquals('foo customer address', $response['address']);
+        $this->assertEquals('foocustomer@example.org', $response['email']);
+        $this->assertEquals('logo.jpg', $response['logo']);
     }
 }
