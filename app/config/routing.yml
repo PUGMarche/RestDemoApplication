@@ -1,0 +1,5 @@
+pug_m_rest_demo:
+    resource: "@PugMRestDemoBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
