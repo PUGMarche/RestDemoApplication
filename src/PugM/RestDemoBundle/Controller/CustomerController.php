@@ -21,6 +21,7 @@ class CustomerController extends Controller
      */
     public function getCustomerAction($id)
     {
-        return new Response();
+        $json = '{"id": 1, "name": "foo customer name", "address": "foo customer address", "email": "foocustomer@example.org", "logo": "logo.jpg"}';
+        return new Response($json);
     }
 }
