@@ -3,3 +3,6 @@ pug_m_rest_demo:
     type:     annotation
     prefix:   /
 
+customers:
+    type:   rest
+    resource:   PugM\RestDemoBundle\Controller\CustomerController
