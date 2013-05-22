@@ -14,6 +14,11 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class CustomerControllerTest extends WebTestCase{
 
+    public function setUp()
+    {
+        $this->loadFixtures(array('PugM\RestDemoBundle\Tests\Fixtures\CustomerControllerTestFixtures'));
+    }
+
     public function testGetCustomer()
     {
         $client = static::createClient();

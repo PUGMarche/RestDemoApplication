@@ -12,16 +12,18 @@ namespace PugM\RestDemoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class CustomerController extends Controller
 {
     /**
+     * @View()
      * @param $id
-     * @return array
+     * @return object ()
      */
     public function getCustomerAction($id)
     {
-        $json = '{"id": 1, "name": "foo customer name", "address": "foo customer address", "email": "foocustomer@example.org", "logo": "logo.jpg"}';
-        return new Response($json);
+        $customer = $this->getDoctrine()->getRepository('PugMRestDemoBundle:Customer')->find($id);
+        return $customer;
     }
 }
