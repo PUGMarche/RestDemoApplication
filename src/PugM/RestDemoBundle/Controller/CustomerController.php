@@ -46,4 +46,19 @@ class CustomerController extends Controller
 
         return $view;
     }
+
+    /**
+     * @param $id
+     * @return array
+     * @View(statusCode=204)
+     */
+    public function deleteCustomerAction($id)
+    {
+        $customer = $this->getDoctrine()->getRepository('PugMRestDemoBundle:Customer')->find($id);
+        $this->getDoctrine()->getManager()->remove($customer);
+        $this->getDoctrine()->getManager()->flush();
+
+
+        return array();
+    }
 }
