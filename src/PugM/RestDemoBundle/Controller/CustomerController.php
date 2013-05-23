@@ -26,4 +26,24 @@ class CustomerController extends Controller
         $customer = $this->getDoctrine()->getRepository('PugMRestDemoBundle:Customer')->find($id);
         return $customer;
     }
+
+    /**
+     * @return mixed
+     */
+    public function postCustomerAction()
+    {
+        $customerData = $this->getRequest()->getContent();
+        $customer = $this->get('serializer')->deserialize($customerData, 'PugM\RestDemoBundle\Entity\Customer', 'json');
+
+        $this->getDoctrine()->getManager()->persist($customer);
+        $this->getDoctrine()->getManager()->flush();
+
+        $view = \FOS\RestBundle\View\View::create(
+            $customer,
+            201,
+            array('location' => $this->generateUrl('get_customer', array('id' => $customer->getId())))
+        );
+
+        return $view;
+    }
 }
