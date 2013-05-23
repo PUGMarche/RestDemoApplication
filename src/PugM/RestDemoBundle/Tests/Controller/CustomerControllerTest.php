@@ -64,4 +64,14 @@ class CustomerControllerTest extends WebTestCase{
         $this->assertEquals('newcustomer@example.org', $response['email']);
         $this->assertEquals('logo.jpg', $response['logo']);
     }
+
+    public function testDeleteCustomer()
+    {
+        $client = static::createClient();
+
+        $client->request('DELETE', '/customers/1', array(), array(), array(
+            'HTTP_ACCEPT' => 'application/json'
+        ));
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+    }
 }
