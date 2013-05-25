@@ -14,6 +14,7 @@ use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use PugM\RestDemoBundle\Entity\Customer;
+use PugM\RestDemoBundle\Entity\Invoice;
 
 class CustomerControllerTestFixtures implements FixtureInterface{
 
@@ -28,7 +29,16 @@ class CustomerControllerTestFixtures implements FixtureInterface{
         $customer->setLogo('logo.jpg');
         $customer->setEmail('foocustomer@example.org');
 
+        $invoice1 = new Invoice();
+        $invoice1->setDate(new \DateTime());
+
+        $invoice2 = new Invoice();
+        $invoice2->setDate(new \DateTime());
+
         $manager->persist($customer);
+        $manager->persist($invoice1);
+        $manager->persist($invoice2);
+
         $manager->flush();
     }
 }

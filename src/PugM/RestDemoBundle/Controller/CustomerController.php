@@ -13,6 +13,7 @@ namespace PugM\RestDemoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\View;
+use Symfony\Component\Routing\Matcher\TraceableUrlMatcher;
 
 class CustomerController extends Controller
 {
@@ -60,5 +61,30 @@ class CustomerController extends Controller
 
 
         return array();
+    }
+
+    /**
+     * @param $id
+     * @return object
+     * @View()
+     */
+    public function getInvoiceAction($id)
+    {
+        return $this->getDoctrine()->getRepository('PugMRestDemoBundle:Invoice')->find($id);
+    }
+
+    /**
+     * @param $id
+     * @View(statusCode=204)
+     */
+    public function linkCustomerAction($id)
+    {
+        $customer = $this->getDoctrine()->getRepository('PugMRestDemoBundle:Customer')->find($id);
+        $links = $this->getRequest()->attributes->get('links');
+        foreach($links as $invoice){
+            $customer->addInvoice($invoice);
+        }
+
+        $this->getDoctrine()->getManager()->flush();
     }
 }
