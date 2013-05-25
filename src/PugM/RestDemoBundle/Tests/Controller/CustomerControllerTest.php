@@ -74,4 +74,16 @@ class CustomerControllerTest extends WebTestCase{
         ));
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
     }
+
+    public function testLinkInvoiceToCustomer()
+    {
+        $client = static::createClient();
+
+        $client->request('LINK', '/customers/1', array(), array(), array(
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_LINK' => array('<http://localhost/invoices/1>; rel="invoice"', '<http://localhost/invoices/2>; rel="invoice"'),
+            ));
+
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+    }
 }
